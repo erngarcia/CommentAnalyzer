@@ -1,3 +1,5 @@
+#Trains the nltk taggers.
+
 from pickle import dump
 import nltk
 from nltk.tokenize import word_tokenize

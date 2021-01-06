@@ -1,3 +1,9 @@
+##!/usr/bin/env python
+##Title: Comment Analyzer
+##Authors: Luis Ernesto Garcia, Jorge Willian Alvarado
+##Date: 11/2020
+##Modified: 1/2021
+
 import nltk
 from nltk.tokenize import word_tokenize
 import re
@@ -12,7 +18,6 @@ import numpy as np
 
 
 class Sentence:
-    # TODO: constructor that can output the verbs, nouns, adjectives, adverbs atributes
     def __init__(self, text, index, post_id):
         self.text = text
         self.index = index
@@ -31,7 +36,7 @@ class Sentence:
         hashtags = []
         slogans = []
 
-        regex_tagger_pkl = open('regex_tagger.pkl', 'rb')
+        regex_tagger_pkl = open('taggers/regex_tagger.pkl', 'rb')
         regex_tagger = load(regex_tagger_pkl)
         regex_tagger_pkl.close()
 
@@ -61,7 +66,7 @@ class Sentence:
                 adjectives.append(i[0])
 
         return len(verbs)
-
+##creates a sentiment analyzer model to determine polarity of the comments.
     def sentiment_analyzer_model(self):
         # best fitting dataset for the purposes of this program.
         dataset, info = tfds.load('imdb_reviews/subwords8k', with_info=True, as_supervised=True)
@@ -119,10 +124,10 @@ class Connection:
     def select_post_messages(self):
         try:
             connection = mysql.connector.connect(
-                host="commentanalysdb.cibkkuhlvze9.us-east-1.rds.amazonaws.com",
-                user="admin",
-                passwd="admin001",
-                database="db01"
+                host=,
+                user=,
+                passwd=,
+                database=
             )
             sql_select = "SELECT id, message FROM posts"
             cursor = connection.cursor()
@@ -134,7 +139,7 @@ class Connection:
             message = "Error reading data from database"
             return message
 
-    # funcion para insertar de vuelta los elementos clausales en al bd.
+
     def insert_post_info(self, sentence):
         tables = ["verb", "noun", "adverb", "adjective"]
         id = 0
@@ -144,10 +149,10 @@ class Connection:
         for table in tables:
             try:
                 connection = mysql.connector.connect(
-                    host="commentanalysdb.cibkkuhlvze9.us-east-1.rds.amazonaws.com",
-                    user="admin",
-                    passwd="admin001",
-                    database="db01"
+                    host=,
+                    user=,
+                    passwd=,
+                    database=
                 )
                 sql_select = "INSERT INTO " + table + "s" + "(post_id," + table + " ,count) VALUES (" + id + "," + \
                              sentence.table()[count] + "," + element_count + ")"
@@ -175,6 +180,7 @@ class Post:
 def main():
     con1 = Connection()
     post_messages = con1.select_post_messages()
+## Generates a plot graph to check relationship between verbs and polarity of the sentence.
     x = []
     y = []
     colours = (0,0,0)
