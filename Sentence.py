@@ -1,4 +1,4 @@
-##!/usr/bin/env python
+#!/usr/bin/env python3
 ##Title: Comment Analyzer
 ##Authors: Luis Ernesto Garcia, Jorge Willian Alvarado
 ##Date: 11/2020
